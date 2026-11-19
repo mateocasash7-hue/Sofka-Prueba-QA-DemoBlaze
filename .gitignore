@@ -1,0 +1,21 @@
+# Archivos que se crean solos al correr las pruebas (no se suben; se vuelven a crear)
+build/
+.gradle/
+target/
+
+# El reporte que entrego está en evidencias/, no en build/
+
+# Configuración personal de editores de código
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Archivos ocultos que crea el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Registros sueltos
+*.log

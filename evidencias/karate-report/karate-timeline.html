@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"Test worker","id":1}];
+var items = [{"id":1,"group":1,"content":"co\/com\/sofka\/automation\/features\/login[1.1:23]","start":1795117491456,"end":1795117493192,"title":"co\/com\/sofka\/automation\/features\/login[1.1:23] 14:44:51.456-14:44:53.192 Login con usuario y password correctos"},{"id":2,"group":1,"content":"co\/com\/sofka\/automation\/features\/login[1.2:24]","start":1795117493199,"end":1795117493962,"title":"co\/com\/sofka\/automation\/features\/login[1.2:24] 14:44:53.199-14:44:53.962 Login con usuario y password correctos"},{"id":3,"group":1,"content":"co\/com\/sofka\/automation\/features\/login[2.1:39]","start":1795117493967,"end":1795117494674,"title":"co\/com\/sofka\/automation\/features\/login[2.1:39] 14:44:53.967-14:44:54.674 Login con password incorrecto"},{"id":4,"group":1,"content":"co\/com\/sofka\/automation\/features\/login[3.1:53]","start":1795117494675,"end":1795117494998,"title":"co\/com\/sofka\/automation\/features\/login[3.1:53] 14:44:54.675-14:44:54.998 Login con usuario inexistente"},{"id":5,"group":1,"content":"co\/com\/sofka\/automation\/features\/signup[1.1:23]","start":1795117495694,"end":1795117496051,"title":"co\/com\/sofka\/automation\/features\/signup[1.1:23] 14:44:55.694-14:44:56.051 Crear un nuevo usuario en signup"},{"id":6,"group":1,"content":"co\/com\/sofka\/automation\/features\/signup[1.2:24]","start":1795117496054,"end":1795117496343,"title":"co\/com\/sofka\/automation\/features\/signup[1.2:24] 14:44:56.054-14:44:56.343 Crear un nuevo usuario en signup"},{"id":7,"group":1,"content":"co\/com\/sofka\/automation\/features\/signup[2.1:39]","start":1795117496344,"end":1795117497095,"title":"co\/com\/sofka\/automation\/features\/signup[2.1:39] 14:44:56.344-14:44:57.095 Intentar crear un usuario ya existente"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>

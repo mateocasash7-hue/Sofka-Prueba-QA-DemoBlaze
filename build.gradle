@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+// Dejé estas tareas por defecto para que con solo "gradlew" se limpie, se ejecute la
+// prueba y se copie el reporte a evidencias/
+defaultTasks 'clean', 'test'
+
+group = 'co.com.sofka.automation'
+version = '1.0.0'
+
+ext {
+    karateVersion = '1.5.1'
+}
+
+// Repositorio de donde descargo las librerías
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Karate con JUnit 5: las llamadas HTTP se escriben directamente en los .feature
+    testImplementation "io.karatelabs:karate-junit5:${karateVersion}"
+    // Gradle 9 necesita el launcher de JUnit Platform para ejecutar las pruebas
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Compilo para Java 17 o superior, con codificación UTF-8 para las tildes
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+    // Solo ejecuto las clases del paquete runners
+    include '**/runners/*'
+
+    // Fuerzo UTF-8 para que las tildes se vean bien en la terminal de Windows
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8', '-Dstderr.encoding=UTF-8'
+    // Muestro en la terminal lo que va haciendo la prueba
+    testLogging.showStandardStreams = true
+    // Obligo a que la prueba se ejecute siempre, sin reutilizar resultados anteriores
+    outputs.upToDateWhen { false }
+    // Aunque falle alguna prueba, igual quiero el reporte en evidencias/
+    finalizedBy 'copiarEvidencias'
+}
+
+// Copio el reporte HTML de Karate a evidencias/ para poder entregarlo
+tasks.register('copiarEvidencias', Copy) {
+    from layout.buildDirectory.dir('karate-reports')
+    into layout.projectDirectory.dir('evidencias/karate-report')
+}
